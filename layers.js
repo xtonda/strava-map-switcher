@@ -53,7 +53,7 @@ var AdditionalMapLayers = (function(){
 				{url: "https://m{s}.mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
 					opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, subdomains: "1234", attribution: mapyCzAttr}}},
         {type: "cykloatlas", name: "Cykloatlas",
-            url: "http://webtiles.timepress.cz/cyklo_256/{z}/{y}/{x}",
-            opts: {minZoom: 7, maxZoom: 15, maxNativeZoom: 15, attribution: cykloatlasAttr}},
+            url: "http://webtiles.timepress.cz/cyklo_256/{z}/{x}/{y}",
+            opts: {minZoom: 7, maxZoom: 18, maxNativeZoom: 18, attribution: cykloatlasAttr}},
 	];
 })();
