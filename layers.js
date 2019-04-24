@@ -17,6 +17,7 @@ var AdditionalMapLayers = (function(){
 	var mapyCzAttr = '&copy; <a href="https://www.seznam.cz/" target="_blank">Seznam.cz, a.s</a>, ' + osmAttr;
 	var cuzkAttr = '&copy; <a href="http://geoportal.cuzk.cz" target="_blank">ČÚZK</a>';
 	var kartverketAttr = '&copy; <a href="http://www.kartverket.no/">Kartverket</a>';
+	var cykloatlasAttr = '&copy; <a href="http://www.cykloserver.cz/cykloatlas" target="_blank">Cykloatlas</a>';
 	return [
 		{type: "openstreetmap", name: "OpenStreetMap",
 			url: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -47,6 +48,12 @@ var AdditionalMapLayers = (function(){
 					opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, subdomains: "1234", attribution: mapyCzAttr}}},
 		{type: "zmcr", name: "Základní mapy ČR",
 			url: "http://ags.cuzk.cz/arcgis/rest/services/zmwm/MapServer/tile/{z}/{y}/{x}",
-			opts: {minZoom: 7, maxZoom: 20, maxNativeZoom: 18, attribution: cuzkAttr}},
+			opts: {minZoom: 7, maxZoom: 20, maxNativeZoom: 18, attribution: cuzkAttr},
+			overlay:
+				{url: "https://m{s}.mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
+					opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, subdomains: "1234", attribution: mapyCzAttr}}},
+        {type: "cykloatlas", name: "Cykloatlas",
+            url: "http://webtiles.timepress.cz/cyklo_256/{z}/{y}/{x}",
+            opts: {minZoom: 7, maxZoom: 15, maxNativeZoom: 15, attribution: cykloatlasAttr}},
 	];
 })();
