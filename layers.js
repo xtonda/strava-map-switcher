@@ -65,6 +65,27 @@ var AdditionalMapLayers = (function () {
                 }
         },
         {
+            type: "mapyczorto15", name: "mapy.cz Aerial 15",
+            url: "https://mapserver.mapy.cz/ophoto1415-m/{z}-{x}-{y}",
+            opts: {minZoom: 2, maxZoom: 20, subdomains: "1234", attribution: mapyCzAttr},
+            overlay:
+                {
+                    url: "https://m{s}.mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
+                    opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, subdomains: "1234", attribution: mapyCzAttr}
+                }
+        },
+        {
+            type: "mapyczzemep", name: "mapy.cz Aerial 15",
+            url: "https://mapserver.mapy.cz/zemepis-m/{z}-{x}-{y}",
+            opts: {minZoom: 2, maxZoom: 20, subdomains: "1234", attribution: mapyCzAttr},
+            overlay:
+                {
+                    url: "https://m{s}.mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
+                    opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, subdomains: "1234", attribution: mapyCzAttr}
+                }
+        },
+        //https://mapserver.mapy.cz/ophoto1415-m/17-71429-44131
+        {
             type: "zmcr", name: "Základní mapy ČR",
             url: "http://ags.cuzk.cz/arcgis/rest/services/zmwm/MapServer/tile/{z}/{y}/{x}",
             opts: {minZoom: 7, maxZoom: 20, maxNativeZoom: 18, attribution: cuzkAttr},
