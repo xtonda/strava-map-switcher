@@ -24,14 +24,19 @@ var AdditionalMapLayers = (function () {
         {
             type: "openstreetmap", name: "OpenStreetMap",
             url: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            opts: {maxZoom: 20, maxNativeZoom: 19, attribution: osmAttr}
+            opts: {maxZoom: 20, maxNativeZoom: 19, attribution: osmAttr},
+            overlay:
+                {
+                    url: "https://m{s}.mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
+                    opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, subdomains: "1234", attribution: mapyCzAttr}
+                }
         },
         {
             type: "opencyclemap", name: "OpenCycleMap",
             url: "https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
             opts: {maxZoom: 20, attribution: thunderforestAttr}
         },
-        {
+        /*{
             type: "transport", name: "Transport",
             url: "https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png",
             opts: {maxZoom: 20, attribution: thunderforestAttr}
@@ -40,7 +45,7 @@ var AdditionalMapLayers = (function () {
             type: "outdoors", name: "Outdoors",
             url: "https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png",
             opts: {maxZoom: 20, attribution: thunderforestAttr}
-        },
+        },*/
         //{type: "kartverket", name: "Kartverket (Norway)",
         //	url: "https://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}",
         //	opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: kartverketAttr}},
