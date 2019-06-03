@@ -75,7 +75,7 @@ var AdditionalMapLayers = (function () {
                 }
         },
         {
-            type: "mapyczzemep", name: "mapy.cz Aerial 15",
+            type: "mapyczzemep", name: "mapy.cz Zeměpisná",
             url: "https://mapserver.mapy.cz/zemepis-m/{z}-{x}-{y}",
             opts: {minZoom: 2, maxZoom: 20, subdomains: "1234", attribution: mapyCzAttr},
             overlay:
