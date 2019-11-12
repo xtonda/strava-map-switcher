@@ -14,7 +14,7 @@
 // @name strava-map-switcher
 // @description Map switcher for Strava website
 // @match https://www.strava.com/*
-// @downloadURL https://rawgit.com/xtonda/strava-map-switcher/master/greasemonkey.user.js
+// @downloadURL https://cdn.jsdelivr.net/gh/xtonda/strava-map-switcher/master/greasemonkey.user.js
 // ==/UserScript==
 
-jQuery('body').append(jQuery("<script src='https://rawgit.com/xtonda/strava-map-switcher/master/inject.js'></script>"));
+jQuery('body').append(jQuery("<script src='https://cdn.jsdelivr.net/gh/xtonda/strava-map-switcher/master/inject.js'></script>"));
