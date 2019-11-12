@@ -108,7 +108,7 @@ var AdditionalMapLayers = (function () {
         {
             type: "opentopo", name: "OpenTopo (+Mapy.cz)",
             url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
-            opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: openTopoAttr},
+            opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 15, attribution: openTopoAttr},
             grid: true,
             overlay:
                 {
