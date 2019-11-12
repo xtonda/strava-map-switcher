@@ -20,7 +20,7 @@ var AdditionalMapLayers = (function () {
     var cykloatlasAttr = '&copy; <a href="http://www.cykloserver.cz/cykloatlas" target="_blank">Cykloatlas</a>';
     var mapyCzOnlyAttr = '&copy; <a href="https://www.seznam.cz/" target="_blank">Seznam.cz, a.s</a>';
     var openTopoAttr = osmAttr + ', Tiles courtesy of <a href="https://opentopomap.org" target="_blank">OpenTopoMap.org</a>';
-    return [
+    var noAttr = '&copy;
         {
             type: "openstreetmap", name: "OpenStreetMap",
             url: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -108,7 +108,18 @@ var AdditionalMapLayers = (function () {
         {
             type: "opentopo", name: "OpenTopo (+Mapy.cz)",
             url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
-            opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 15, attribution: openTopoAttr},
+            opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: openTopoAttr},
+            grid: true,
+            overlay:
+                {
+                    url: "https://m{s}.mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
+                    opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, subdomains: "1234", attribution: mapyCzOnlyAttr}
+                }
+        },
+        {
+            type: "prahounakole", name: "Prahounakole (+Mapy.cz)",
+            url: "https://tiles.prahounakole.cz/{z}/{x}/{y}.png",
+            opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: noAttr},
             grid: true,
             overlay:
                 {
