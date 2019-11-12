@@ -20,7 +20,6 @@ var AdditionalMapLayers = (function () {
     var cykloatlasAttr = '&copy; <a href="http://www.cykloserver.cz/cykloatlas" target="_blank">Cykloatlas</a>';
     var mapyCzOnlyAttr = '&copy; <a href="https://www.seznam.cz/" target="_blank">Seznam.cz, a.s</a>';
     var openTopoAttr = osmAttr + ', Tiles courtesy of <a href="https://opentopomap.org" target="_blank">OpenTopoMap.org</a>';
-    var noAttr = '&copy; ';
         {
             type: "openstreetmap", name: "OpenStreetMap",
             url: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -119,7 +118,7 @@ var AdditionalMapLayers = (function () {
         {
             type: "prahounakole", name: "Prahounakole (+Mapy.cz)",
             url: "https://tiles.prahounakole.cz/{z}/{x}/{y}.png",
-            opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: noAttr},
+            opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: osmAttr},
             grid: true,
             overlay:
                 {
