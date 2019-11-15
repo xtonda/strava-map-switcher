@@ -14,6 +14,7 @@
 // @name strava-map-switcher
 // @description Map switcher for Strava website
 // @match https://www.strava.com/*
+// @require https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://cdn.jsdelivr.net/gh/xtonda/strava-map-switcher@master/greasemonkey.user.js
 // ==/UserScript==
 
