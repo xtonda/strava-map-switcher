@@ -31,7 +31,7 @@
 	).then(() => Promise.all([
 		getScript(getURL('arrive.min.js')),
 		getScript(getURL('layers.js')),
-		getScript(getURL('donation.js')),
+		//getScript(getURL('donation.js')),
 		ignoreError(getScript("https://maps.google.com/maps/api/js?sensor=true&client=gme-stravainc1")).then(
 			() => getScript(getURL('Google.js'))),
 	])).then(function () {
