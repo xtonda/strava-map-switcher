@@ -62,10 +62,10 @@ var AdditionalMapLayers;
             overlay:
                 {url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
                     opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}}},
-		geoportail: {name: "Geoportail Aerial",
+/*		geoportail: {name: "Geoportail Aerial",
 			url: "https://wxs.ign.fr/an7nvfzojv5wa96dsga5nk8w/geoportail/wmts?layer=ORTHOIMAGERY.ORTHOPHOTOS&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}",
 			opts: {maxZoom: 20, maxNativeZoom: 19, attribution: geoportailAttr}},
-        mapyczorto15: {name: "mapy.cz Aerial",
+*/        mapyczorto15: {name: "mapy.cz Aerial",
             url: "https://mapserver.mapy.cz/ophoto1415-m/{z}-{x}-{y}",
             opts: {minZoom: 2, maxZoom: 20, attribution: mapyCzAttr},
             overlay:
