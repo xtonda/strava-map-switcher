@@ -10,16 +10,32 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// ==UserScript==
-// @name strava-map-switcher
-// @description Map switcher for Strava website
-// @match https://www.strava.com/*
-// @downloadURL https://cdn.jsdelivr.net/gh/xtonda/strava-map-switcher@master/greasemonkey.user.js
-// ==/UserScript==
-
 {
-	const s = document.createElement("script");
-	s.src = 'https://cdn.jsdelivr.net/gh/xtonda/strava-map-switcher@master/load.js';
-	s.type = 'text/javascript';
-	document.body.appendChild(s);
+	const baseUrl = document.currentScript.src.match("^[a-z-]+://.*/") + "";
+	const getURL = (path) => baseUrl + path;
+
+	const ignoreError = (promise) => new Promise(resolve => { promise.finally(resolve); null; });
+
+	const getScript = (url) => new Promise(function (resolve, reject) {
+		const s = document.createElement("script");
+		s.src = url;
+		s.async = true;
+		s.type = 'text/javascript';
+		s.onerror = reject;
+		s.onload = resolve;
+		document.body.appendChild(s);
+	});
+
+	Promise.resolve(window.jQuery ? null
+		: getScript("https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js").then(() => jQuery.noConflict())
+	).then(() => Promise.all([
+		getScript(getURL('arrive.min.js')),
+		getScript(getURL('layers.js')),
+		getScript(getURL('donation.js')),
+		ignoreError(getScript("https://maps.google.com/maps/api/js?sensor=true&client=gme-stravainc1")).then(
+			() => getScript(getURL('Google.js'))),
+	])).then(function () {
+		getScript(getURL('fix.js'));
+		getScript(getURL('fix-mapbox.js'));
+	});
 }

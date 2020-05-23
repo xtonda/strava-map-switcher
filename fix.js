@@ -10,8 +10,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var FixScript = document.currentScript;
-jQuery.getScript(FixScript.dataset.layersUrl).done(function(){
+document.arrive(".leaflet-container", {onceOnly: false, existing: true}, function () {
 	function tileLayer(l) {
 		var r = L.tileLayer(l.url, l.opts);
 		if (l.overlay) {
@@ -23,18 +22,11 @@ jQuery.getScript(FixScript.dataset.layersUrl).done(function(){
 
 	function addLayers(map) {
 		map.layers.runbikehike = map.createLayer("run-bike-hike");
-		AdditionalMapLayers.forEach(l => map.layers[l.type] = tileLayer(l));
-		if (window.google) {
-			window.google.load("maps", "3.9", {"other_params":"sensor=false&libraries=geometry,places&client=gme-stravainc1", callback: function(){
-				//'https://cdn.rawgit.com/shramov/leaflet-plugins/master/layer/tile/Google.js'
-				jQuery.getScript(FixScript.dataset.googleJsUrl).done(function() {
-					map.layers.googlesatellite = new L.Google('SATELLITE');
-					map.layers.googleroadmap = new L.Google('ROADMAP');
-					map.layers.googlehybrid = new L.Google('HYBRID');
-					map.layers.googleterrain = new L.Google('TERRAIN');
-				});
-			}});
-		}
+		Object.entries(AdditionalMapLayers).forEach(([type, l]) => map.layers[type] = tileLayer(l));
+		map.layers.googlesatellite = new L.Google('SATELLITE');
+		map.layers.googleroadmap = new L.Google('ROADMAP');
+		map.layers.googlehybrid = new L.Google('HYBRID');
+		map.layers.googleterrain = new L.Google('TERRAIN');
 	}
 
 	Strava.Maps.Mapbox.Base.mapIds.runbikehike_id = "mapbox.run-bike-hike";
@@ -49,7 +41,7 @@ jQuery.getScript(FixScript.dataset.layersUrl).done(function(){
 		,googlehybrid: "Google Hybrid"
 		,googleterrain: "Google Terrain"
 		};
-	AdditionalMapLayers.forEach(l => layerNames[l.type] = l.name);
+	Object.entries(AdditionalMapLayers).forEach(([type, l]) => layerNames[type] = l.name);
 
 	var activityOpts = jQuery('#map-type-control .options');
 	if (activityOpts.length) {
@@ -84,10 +76,13 @@ jQuery.getScript(FixScript.dataset.layersUrl).done(function(){
 			return map.setLayer(t);
 		};
 
+		if (MapSwitcherDonation)
+			activityOpts.append(jQuery('<li>').append(MapSwitcherDonation));
+
 		var optsToAdd = [];
 		optsToAdd.push(
 			{type: "runbikehike", name: "Run/Bike/Hike"});
-		AdditionalMapLayers.forEach(l => optsToAdd.push({type: l.type, name: l.name}));
+		Object.entries(AdditionalMapLayers).forEach(([type, l]) => optsToAdd.push({type: type, name: l.name}));
 		optsToAdd.push(
 			{type: "googlesatellite", name: "Google Satellite"},
 			{type: "googleroadmap", name: "Google Road Map"},
@@ -122,7 +117,7 @@ jQuery.getScript(FixScript.dataset.layersUrl).done(function(){
 			addLayers(e.map);
 
 			function setMapType(t) {
-				localStorage.stravaMapSwitcherSegmentExplorerPreferred = t;
+				localStorage.stravaMapSwitcherPreferred = t;
 				e.map.setLayer(t);
 			}
 
@@ -140,11 +135,14 @@ jQuery.getScript(FixScript.dataset.layersUrl).done(function(){
 			addButton("Terrain", "terrain");
 			addButton("Satellite", "satellite");
 			addButton("Run/Bike/Hike", "runbikehike");
-			AdditionalMapLayers.forEach(l => addButton(l.name, l.type));
+			Object.entries(AdditionalMapLayers).forEach(([type, l]) => addButton(l.name, type));
 			addButton("Google Satellite", "googlesatellite");
 			addButton("Google Road Map", "googleroadmap");
 			addButton("Google Hybrid", "googlehybrid");
 			addButton("Google Terrain", "googleterrain");
+
+			if (MapSwitcherDonation)
+				clr.append(jQuery("<div class='button btn-xs'>").append(MapSwitcherDonation));
 
 			var preferredMap = localStorage.stravaMapSwitcherPreferred;
 			if (preferredMap) {
@@ -159,39 +157,5 @@ jQuery.getScript(FixScript.dataset.layersUrl).done(function(){
 			Strava.Explorer.Navigation.prototype.navigate = old_navigate;
 		};
 		explorerMapFilters.trigger('submit');
-	}
-
-	var routeBuilderOpts = jQuery('#view-options li.map-style div.switches');
-	if (routeBuilderOpts.length) {
-		var once = true;
-		Strava.Routes.MapViewOptionsView.prototype.setMapStyle = function(t){
-			var map = this.map;
-
-			if (once) {
-				once = false;
-
-				addLayers(map);
-			}
-
-			localStorage.stravaMapSwitcherPreferred = t;
-			return map.setLayer(t);
-		};
-
-		var preferredMap = localStorage.stravaMapSwitcherPreferred;
-
-		// change map so that our setMapStyle is called
-		routeBuilderOpts.find('div:last').click();
-
-		routeBuilderOpts.css({display: 'block', position: 'relative'});
-		AdditionalMapLayers.forEach(l =>
-			routeBuilderOpts.append(
-				jQuery("<div class='button btn-xs' tabindex='0'>").data("value", l.type).text(l.name)
-			)
-		);
-		routeBuilderOpts.children().css({display: 'block', width: '100%'});
-
-		if (preferredMap) {
-			routeBuilderOpts.children().filter((_, e) => jQuery(e).data("value") === preferredMap).click();
-		}
 	}
 });

@@ -1,9 +1,12 @@
 {
   "name": "strava-map-switcher",
-  "version": "0.9",
+  "version": "0.12.1",
   "manifest_version": 2,
   "description": "Map switcher for Strava website",
   "homepage_url": "https://github.com/xtonda/strava-map-switcher",
+  "icons": {
+    "128": "icons/icon128.png"
+  },
   "permissions": [
     "https://www.strava.com/*"
   ],
@@ -13,14 +16,22 @@
         "https://www.strava.com/*"
       ],
       "js": [
-        "arrive.min.js",
         "inject.js"
       ]
     }
   ],
   "web_accessible_resources": [
-    "fix.js",
     "Google.js",
-    "layers.js"
-  ]
+    "arrive.min.js",
+    "donation.js",
+    "fix-mapbox.js",
+    "fix.js",
+    "layers.js",
+    "load.js"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{8bc8a884-a7db-45e3-84dd-963933a87d3c}"
+    }
+  }
 }
