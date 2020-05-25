@@ -11,28 +11,3 @@
  */
 
 var MapSwitcherDonation = null;
-
-{
-	const lastDonationClick = localStorage.stravaMapSwitcherLastDonationClick;
-	const clickedRecently = lastDonationClick && (Date.now() - lastDonationClick) < 1000 * 86400 * 180;
-
-	const lastDonationVersion = localStorage.stravaMapSwitcherLastDonationVersion;
-	const thisVersion = localStorage.stravaMapSwitcherVersion;
-	const clickedThisVersion = !thisVersion || (lastDonationVersion && thisVersion == lastDonationVersion);
-
-	if (!clickedRecently || !clickedThisVersion) {
-		MapSwitcherDonation =
-			jQuery('<a href="https://www.paypal.me/lisknisi/10EUR" target="_blank">')
-			.text('♥=€ strava-map-switcher')
-			.css({'font-weight': 'bold'})
-			.click(function () {
-				localStorage.stravaMapSwitcherLastDonationClick = Date.now();
-				localStorage.stravaMapSwitcherLastDonationVersion = thisVersion;
-			});
-	} else {
-		MapSwitcherDonation =
-			jQuery('<a href="https://github.com/xtonda/strava-map-switcher#readme" target="_blank">')
-			.text('strava-map-switcher')
-			.css({'font-weight': 'bold'});
-	}
-}

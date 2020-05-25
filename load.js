@@ -14,7 +14,7 @@
 	const baseUrl = document.currentScript.src.match("^[a-z-]+://.*/") + "";
 	const getURL = (path) => baseUrl + path;
 
-	const ignoreError = (promise) => new Promise(resolve => { promise.finally(resolve); null; });
+	const ignoreError = (promise) => new Promise(resolve => { promise.then(resolve, resolve); null; });
 
 	const getScript = (url) => new Promise(function (resolve, reject) {
 		const s = document.createElement("script");
@@ -31,7 +31,7 @@
 	).then(() => Promise.all([
 		getScript(getURL('arrive.min.js')),
 		getScript(getURL('layers.js')),
-		//getScript(getURL('donation.js')),
+		getScript(getURL('donation.js')),
 		ignoreError(getScript("https://maps.google.com/maps/api/js?sensor=true&client=gme-stravainc1")).then(
 			() => getScript(getURL('Google.js'))),
 	])).then(function () {
