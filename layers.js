@@ -75,13 +75,13 @@ var AdditionalMapLayers;
 			url: "https://wxs.ign.fr/an7nvfzojv5wa96dsga5nk8w/geoportail/wmts?layer=ORTHOIMAGERY.ORTHOPHOTOS&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}",
 			opts: {maxZoom: 20, maxNativeZoom: 19, attribution: geoportailAttr}},
 		*/
-		mapyczorto15: {name: "mapy.cz Aerial",
+		mapyczorto15: {name: "mapy.cz (Aerial '15)",
             url: "https://mapserver.mapy.cz/ophoto1415-m/{z}-{x}-{y}",
             opts: {minZoom: 2, maxZoom: 20, attribution: mapyCzAttr},
             overlay:
                 {url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
                     opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}}},
-        mapyczzemep: {name: "mapy.cz Zeměpisná",
+        mapyczzemep: {name: "mapy.cz (Zeměpisná)",
             url: "https://mapserver.mapy.cz/zemepis-m/{z}-{x}-{y}",
             opts: {minZoom: 2, maxZoom: 20, attribution: mapyCzAttr},
             overlay:
