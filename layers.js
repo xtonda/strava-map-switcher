@@ -68,6 +68,9 @@ var AdditionalMapLayers;
 				{url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
 					opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}}},
 		/*
+		mtbmapno: {name: "mtbmap.no [NO]",
+			url: "https://mtbmap.no/tiles/osm/mtbmap/{z}/{x}/{y}.jpg",
+			opts: {minZoom: 1, maxZoom: 20, maxNativeZoom: 16, attribution: mtbMapNOAttr}},
 		kartverket: {name: "Kartverket [NO]",
 			url: "https://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}",
 			opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: kartverketAttr}},
