@@ -24,21 +24,21 @@ document.arrive(".leaflet-container", {onceOnly: false, existing: true, fireOnAt
 	}
 
 	function addLayers(map) {
-		map.layers.runbikehike = map.createLayer("run-bike-hike");
 		Object.entries(AdditionalMapLayers).forEach(([type, l]) => map.layers[type] = tileLayer(l));
-		map.layers.googlesatellite = new L.Google('SATELLITE');
-		map.layers.googleroadmap = new L.Google('ROADMAP');
-		map.layers.googlehybrid = new L.Google('HYBRID');
-		map.layers.googleterrain = new L.Google('TERRAIN');
+		map.layers.googlesatellite = L.gridLayer.googleMutant({type: 'satellite'});
+		map.layers.googleroadmap = L.gridLayer.googleMutant({type: 'roadmap'});
+		map.layers.googlehybrid = L.gridLayer.googleMutant({type: 'hybrid'});
+		map.layers.googleterrain = L.gridLayer.googleMutant({type: 'terrain'});
 	}
 
-	Strava.Maps.Mapbox.Base.mapIds.runbikehike_id = "mapbox.run-bike-hike";
+	function addPegman(map) {
+		const pegmanControl = new L.Control.Pegman({position: 'bottomright', theme: 'leaflet-pegman-v3-default'});
+		pegmanControl.addTo(map);
+	}
 
 	var layerNames =
-		{terrain: Strava.I18n.Locale.t("strava.maps.google.custom_control.terrain")
-		,standard: Strava.I18n.Locale.t("strava.maps.google.custom_control.standard")
+		{standard: Strava.I18n.Locale.t("strava.maps.google.custom_control.standard")
 		,satellite: Strava.I18n.Locale.t("strava.maps.google.custom_control.satellite")
-		,runbikehike: "Run/Bike/Hike"
 		,googlesatellite: "Google Satellite"
 		,googleroadmap: "Google Road Map"
 		,googlehybrid: "Google Hybrid"
@@ -46,7 +46,7 @@ document.arrive(".leaflet-container", {onceOnly: false, existing: true, fireOnAt
 		};
 	Object.entries(AdditionalMapLayers).forEach(([type, l]) => layerNames[type] = l.name);
 
-	var activityOpts = jQuery('#map-type-control .options');
+	var activityOpts = jQuery('#map-type-control .options', this);
 	if (activityOpts.length) {
 		Strava.Maps.CustomControlView.prototype.handleMapTypeSelector = function (t) {
 			const type = this.$$(t.target).data("map-type-id");
@@ -64,6 +64,7 @@ document.arrive(".leaflet-container", {onceOnly: false, existing: true, fireOnAt
 				once = false;
 
 				addLayers(map);
+				addPegman(map.instance);
 
 				// this is needed for the right handleMapTypeSelector to be called
 				this.delegateEvents();
@@ -82,7 +83,6 @@ document.arrive(".leaflet-container", {onceOnly: false, existing: true, fireOnAt
 
 		activityOpts.css({"max-height": "250px", "right": 0});
 		activityOpts.prepend(button("standard"));
-		activityOpts.append(button("runbikehike"));
 
 		if (MapSwitcherDonation)
 			activityOpts.append(jQuery('<li>').append(MapSwitcherDonation));
@@ -115,6 +115,7 @@ document.arrive(".leaflet-container", {onceOnly: false, existing: true, fireOnAt
 			once = true;
 
 			addLayers(e.map);
+			addPegman(e.map.instance);
 
 			function setMapType(t) {
 				localStorage.stravaMapSwitcherPreferred = t;
@@ -132,9 +133,7 @@ document.arrive(".leaflet-container", {onceOnly: false, existing: true, fireOnAt
 				clr.append(b);
 			}
 			addButton("Standard", "standard");
-			addButton("Terrain", "terrain");
 			addButton("Satellite", "satellite");
-			addButton("Run/Bike/Hike", "runbikehike");
 			Object.entries(AdditionalMapLayers).forEach(([type, l]) => addButton(l.name, type));
 			addButton("Google Satellite", "googlesatellite");
 			addButton("Google Road Map", "googleroadmap");

@@ -11,13 +11,13 @@
  */
 
 {
-	const baseUrl = document.currentScript.src.match("^[a-z-]+://.*/") + "";
+	const baseUrl = document.currentScript.src.match('^[a-z-]+://.*/') + '';
 	const getURL = (path) => baseUrl + path;
 
 	const ignoreError = (promise) => new Promise(resolve => { promise.then(resolve, resolve); null; });
 
 	const getScript = (url) => new Promise(function (resolve, reject) {
-		const s = document.createElement("script");
+		const s = document.createElement('script');
 		s.src = url;
 		s.async = true;
 		s.type = 'text/javascript';
@@ -26,22 +26,31 @@
 		document.body.appendChild(s);
 	});
 
+	const getCSS = function (url) {
+		const s = document.createElement('link');
+		s.href = url;
+		s.rel = 'stylesheet';
+		document.head.appendChild(s);
+	};
+
 	const loadJQuery = () => window.jQuery
 		? Promise.resolve(null)
-		: getScript("https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js").then(() => jQuery.noConflict());
+		: getScript('https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js').then(() => jQuery.noConflict());
 	const loadGoogleMaps = () => document.querySelector('script[src*="//maps.google.com/maps/api/js"]')
 		? Promise.resolve(null)
-		: ignoreError(getScript("https://maps.google.com/maps/api/js?sensor=true&client=gme-stravainc1"));
-	const loadGoogleLeaflet = () => (window.L && window.L.Class)
-		? getScript(getURL('Google.js'))
+		: ignoreError(getScript('https://maps.google.com/maps/api/js?sensor=true&client=gme-stravainc1'));
+	const loadGoogleMutant = () => (window.L && window.L.Class)
+		? getScript(getURL('Leaflet.GoogleMutant.js'))
 		: Promise.resolve(null);
 
 	loadJQuery().then(() => Promise.all([
 		getScript(getURL('arrive.min.js')),
 		getScript(getURL('layers.js')),
 		getScript(getURL('donation.js')),
-		loadGoogleMaps().then(() => loadGoogleLeaflet()),
+		loadGoogleMaps().then(() => loadGoogleMutant()),
+		getScript('https://cdn.jsdelivr.net/npm/leaflet-pegman@0.1.3/leaflet-pegman.min.js'),
 	])).then(function () {
+		getCSS('https://cdn.jsdelivr.net/npm/leaflet-pegman@0.1.3/leaflet-pegman.min.css'),
 		getScript(getURL('fix.js'));
 		getScript(getURL('fix-mapbox.js'));
 	});
