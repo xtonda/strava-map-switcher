@@ -21,27 +21,34 @@ var AdditionalMapLayers;
 	const cuzkAttr = '&copy; <a href="http://geoportal.cuzk.cz" target="_blank">ČÚZK</a>';
 	const kartverketAttr = '&copy; <a href="http://www.kartverket.no/">Kartverket</a>';
 	const geoportailAttr = '&copy; <a href="https://www.geoportail.gouv.fr/">Geoportail</a>';
-	const mtbMapNOAttr = osmAttr + ', Tiles courtesy of <a href="https://mtbmap.no/" target="_blank">mtbmap.no</a>';
 
 	AdditionalMapLayers = {
 		openstreetmap: {name: "OpenStreetMap",
 			url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-			opts: {maxZoom: 20, maxNativeZoom: 19, attribution: osmAttr}},
+			opts: {maxZoom: 20, maxNativeZoom: 19, attribution: osmAttr},
+            overlay:
+                {url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
+                    opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}}},
 		opencyclemap: {name: "OpenCycleMap",
 			url: "https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
 			opts: {maxZoom: 20, attribution: thunderforestAttr}},
+		/*
 		transport: {name: "Transport",
 			url: "https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png",
 			opts: {maxZoom: 20, attribution: thunderforestAttr}},
 		outdoors: {name: "Outdoors",
 			url: "https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png",
 			opts: {maxZoom: 20, attribution: thunderforestAttr}},
+		*/
 		mapycz: {name: "mapy.cz (Outdoor)",
 			url: "https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}",
 			opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}},
+		/*
 		mapyczwinter: {name: "mapy.cz (Winter)",
 			url: "https://mapserver.mapy.cz/winter-m/{z}-{x}-{y}",
 			opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}},
+
+		*/
 		mapyczbing: {name: "mapy.cz (Aerial)",
 			url: "https://mapserver.mapy.cz/bing/{z}-{x}-{y}",
 			opts: {minZoom: 2, maxZoom: 20, attribution: mapyCzAttr},
@@ -51,20 +58,52 @@ var AdditionalMapLayers;
 		mtbmap: {name: "mtbmap.cz [Europe]",
 			url: "http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png",
 			opts: {minZoom: 3, maxZoom: 20, maxNativeZoom: 18, attribution: mtbMapAttr}},
-		freemapsk: {name: "freemap.sk [Europe south-east]",
+        freemapsk: {name: "freemap.sk [Europe south-east]",
 			url: "https://outdoor.tiles.freemap.sk/{z}/{x}/{y}",
 			opts: {minZoom: 3, maxZoom: 20, maxNativeZoom: 19, attribution: freeMapSkAttr}},
-		zmcr: {name: "Základní mapy ČR [CZ]",
+        zmcr: {name: "Základní mapy ČR [CZ]",
 			url: "https://ags.cuzk.cz/arcgis/rest/services/zmwm/MapServer/tile/{z}/{y}/{x}",
-			opts: {minZoom: 7, maxZoom: 20, maxNativeZoom: 18, attribution: cuzkAttr}},
+			opts: {minZoom: 7, maxZoom: 20, maxNativeZoom: 18, attribution: cuzkAttr},
+			overlay:
+				{url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
+					opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}}},
+		/*
 		mtbmapno: {name: "mtbmap.no [NO]",
 			url: "https://mtbmap.no/tiles/osm/mtbmap/{z}/{x}/{y}.jpg",
 			opts: {minZoom: 1, maxZoom: 20, maxNativeZoom: 16, attribution: mtbMapNOAttr}},
 		kartverket: {name: "Kartverket [NO]",
 			url: "https://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}",
 			opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: kartverketAttr}},
-		geoportail: {name: "Geoportail Aerial [FR]",
+        geoportail: {name: "Geoportail Aerial [FR]",
 			url: "https://wxs.ign.fr/an7nvfzojv5wa96dsga5nk8w/geoportail/wmts?layer=ORTHOIMAGERY.ORTHOPHOTOS&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}",
 			opts: {maxZoom: 20, maxNativeZoom: 19, attribution: geoportailAttr}},
+		*/
+		mapyczorto15: {name: "mapy.cz (Aerial '15)",
+            url: "https://mapserver.mapy.cz/ophoto1415-m/{z}-{x}-{y}",
+            opts: {minZoom: 2, maxZoom: 20, attribution: mapyCzAttr},
+            overlay:
+                {url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
+                    opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}}},
+        mapyczzemep: {name: "mapy.cz (Zeměpisná)",
+            url: "https://mapserver.mapy.cz/zemepis-m/{z}-{x}-{y}",
+            opts: {minZoom: 2, maxZoom: 20, attribution: mapyCzAttr},
+            overlay:
+                {url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
+                    opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}}},
+        cykloatlas: {name: "Cykloatlas",
+            url: "https://webtiles.timepress.cz/cyklo_256/{z}/{x}/{y}",
+            opts: {maxZoom: 20, maxNativeZoom: 19, attribution: geoportailAttr}},
+        opentopo: {name: "Open topo",
+            url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+            opts: {minZoom: 2, maxZoom: 20, attribution: mapyCzAttr},
+            overlay:
+                {url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
+                    opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}}},
+        prahounakole: {name: "Prahou na kole",
+            url: "https://tiles.prahounakole.cz/{z}/{x}/{y}.png",
+            opts: {minZoom: 2, maxZoom: 20, attribution: mapyCzAttr},
+            overlay:
+                {url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
+                    opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}}},
 	};
 }
