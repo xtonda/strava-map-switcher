@@ -99,11 +99,18 @@ var AdditionalMapLayers;
             overlay:
                 {url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
                     opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}}},
+		cyclosm: {name: "CyclOSM",
+			url: "https://a.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png",
+			opts: {minZoom: 2, maxZoom: 20, attribution: osmAttr},
+			overlay:
+				{url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
+					opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: osmAttr}}},
         prahounakole: {name: "Prahou na kole",
             url: "https://tiles.prahounakole.cz/{z}/{x}/{y}.png",
-            opts: {minZoom: 2, maxZoom: 20, attribution: mapyCzAttr},
+            opts: {minZoom: 2, maxZoom: 20, attribution: osmAttr},
             overlay:
                 {url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
                     opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}}},
 	};
 }
+// https://a.tile-cyclosm.openstreetmap.fr/cyclosm/15/17872/11048.png
