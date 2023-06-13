@@ -108,7 +108,7 @@ var AdditionalMapLayers;
 				{url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
 					opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: osmAttr}}},
         prahounakole: {name: "Prahou na kole",
-            url: "https://tiles.prahounakole.cz/{z}/{x}/{y}.png",
+            url: "https://mnk-osm-tiles.dopracenakole.net/{z}/{x}/{y}.png",
             opts: {minZoom: 2, maxZoom: 20, attribution: osmAttr},
             overlay:
                 {url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
