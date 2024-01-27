@@ -64,7 +64,7 @@ var AdditionalMapLayers;
 			opts: {minZoom: 3, maxZoom: 20, maxNativeZoom: 19, attribution: freeMapSkAttr}},
         */
         zmcr: {name: "Základní mapy ČR [CZ]",
-			url: "https://ags.cuzk.cz/arcgis/rest/services/zmwm/MapServer/tile/{z}/{y}/{x}",
+			url: "https://ags.cuzk.cz/arcgis1/rest/services/ZTM_WM/MapServer/tile/{z}/{y}/{x}",
 			opts: {minZoom: 7, maxZoom: 20, maxNativeZoom: 18, attribution: cuzkAttr},
 			overlay:
 				{url: "https://mapserver.mapy.cz/hybrid-trail_bike-m/{z}-{x}-{y}",
@@ -115,4 +115,3 @@ var AdditionalMapLayers;
                     opts: {minZoom: 2, maxZoom: 20, maxNativeZoom: 18, attribution: mapyCzAttr}}},
 	};
 }
-// https://a.tile-cyclosm.openstreetmap.fr/cyclosm/15/17872/11048.png
