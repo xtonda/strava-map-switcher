@@ -2,7 +2,7 @@ BRANCH = $(or $(shell git symbolic-ref --short HEAD),$(error cannot detect branc
 
 .PHONY: zip
 zip:
-	git archive -o $(notdir $(CURDIR))-$(shell git describe)-$(BRANCH).zip @
+	git archive -o $(notdir $(CURDIR))-$(shell git describe).zip @
 
 .PHONY: release
 release:
